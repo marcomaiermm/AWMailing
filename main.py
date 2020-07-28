@@ -61,7 +61,7 @@ def date_check(path, dest):
     }
     old_files = []
     for file in os.listdir(path):
-        if os.path.isfile(os.path.join(path, file)):
+        if os.path.isfile(os.path.join(path, file)) and not file.endswith('.link'):
             file_path = os.path.join(path, file)
             file_age = datetime.datetime.fromtimestamp(
                 os.stat(file_path).st_mtime).date()
@@ -82,8 +82,8 @@ def date_check(path, dest):
                 new_files['pure'].append(file_name)
                 new_files['head'].append(file_name_raw_head)
                 new_files['tail'].append(file_name_raw_tail)
-                new_files['old_path'].append(file_path)
                 new_files['path'].append(new_dest)
+                new_files['old_path'].append(file_path)
 
     print("Dateien erfolgreich kopiert: ", new_files)
     if old_files:
